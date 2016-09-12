@@ -1,9 +1,21 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System;
 
-namespace LunraGames.ScriptableSingletons
+namespace LunraGames.Singletonnes
 {
-	public abstract class EditorScriptableSingleton<T> : ScriptableObject 
+	public abstract class EditorScriptableSingleton : ScriptableObject
+	{
+		Type _CurrentType;
+		public Type CurrentType { get { return _CurrentType; } }
+
+		protected EditorScriptableSingleton() 
+		{
+			_CurrentType = GetType();	
+		}
+	}
+
+	public abstract class EditorScriptableSingleton<T> : EditorScriptableSingleton 
 		where T : EditorScriptableSingleton<T>
 	{
 		static T _Instance;

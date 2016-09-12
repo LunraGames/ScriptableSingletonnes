@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace LunraGames.ScriptableSingletons
+namespace LunraGames.Singletonnes
 {
 	public abstract class ScriptableSingleton : ScriptableObject
 	{
