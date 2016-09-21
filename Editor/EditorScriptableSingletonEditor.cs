@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace LunraGames.Singletonnes
 {
-	[CustomEditor(typeof(EditorScriptableSingleton), true)]
+	[CustomEditor(typeof(EditorScriptableSingletonBase), true)]
 	public class EditorScriptableSingletonEditor : Editor 
 	{
 		static float ButtonHeight = 40f;
+		static string WrongInheritence = "Your scriptable object doesn't inherit from "+typeof(EditorScriptableSingleton<>).Name;
 		static string WrongNameMessage = "Your asset's name does not match its type.";
 		static string WrongPathMessage = "Your asset is not in a valid directory.";
 		static string WrongNameAndPathMessage = "Your asset's name does not match its type, and is not in a valid directory.";
@@ -17,7 +18,16 @@ namespace LunraGames.Singletonnes
 			
 		public override void OnInspectorGUI() 
 		{
-			var typedTarget = (EditorScriptableSingleton)target;
+			var typedTarget = (EditorScriptableSingletonBase)target;
+
+			var invalidInheritence = typedTarget.CurrentType == null || typedTarget.CurrentType != typedTarget.GetType();
+
+			if (invalidInheritence)
+			{
+				EditorGUILayout.HelpBox(WrongInheritence, MessageType.Error);
+				DrawDefaultInspector();
+				return;
+			}
 
 			var path = AssetDatabase.GetAssetPath(typedTarget);
 			var assetName = Path.GetFileNameWithoutExtension(path);
@@ -66,7 +76,6 @@ namespace LunraGames.Singletonnes
 			}
 
 			DrawDefaultInspector();
-
 		}
 
 		void MoveAsset(string originPath, string targetPath) 

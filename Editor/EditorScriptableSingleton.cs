@@ -1,21 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System;
 
 namespace LunraGames.Singletonnes
 {
-	public abstract class EditorScriptableSingleton : ScriptableObject
-	{
-		Type _CurrentType;
-		public Type CurrentType { get { return _CurrentType; } }
-
-		protected EditorScriptableSingleton() 
-		{
-			_CurrentType = GetType();	
-		}
-	}
-
-	public abstract class EditorScriptableSingleton<T> : EditorScriptableSingleton 
+	public abstract class EditorScriptableSingleton<T> : EditorScriptableSingletonBase 
 		where T : EditorScriptableSingleton<T>
 	{
 		static T _Instance;
@@ -32,5 +20,8 @@ namespace LunraGames.Singletonnes
 			}
 			return AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(instances[0]));
 		}
+
+		protected EditorScriptableSingleton() : base(typeof(T)) {}
+
 	}
 }
