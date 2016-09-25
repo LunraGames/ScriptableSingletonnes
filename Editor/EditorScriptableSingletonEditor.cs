@@ -45,7 +45,7 @@ namespace LunraGames.Singletonnes
 					{
 						if (GUILayout.Button(DefineDirectoryFixText, EditorStyles.miniButton, GUILayout.Height(ButtonHeight))) 
 						{
-							var selectedPath = UnityEditor.EditorUtility.SaveFolderPanel("Select a Editor Directory", "Assets", string.Empty);
+							var selectedPath = EditorUtility.SaveFolderPanel("Select a Editor Directory", "Assets", string.Empty);
 							if (!string.IsNullOrEmpty(selectedPath)) 
 							{
 								selectedPath = selectedPath.Substring(Path.GetDirectoryName(Application.dataPath).Length + 1);
@@ -54,7 +54,7 @@ namespace LunraGames.Singletonnes
 								{
 									MoveAsset(path, Path.Combine(selectedPath, requiredName + ".asset")); 
 								} 
-								else UnityEditor.EditorUtility.DisplayDialog("Invalid", "You must select an \"Editor\" directory.", "Okay");
+								else EditorUtilityExtensions.DialogInvalid("You must select an \"Editor\" directory.");
 							}
 						}
 						if (GUILayout.Button(AutoFixText, EditorStyles.miniButton, GUILayout.Height(ButtonHeight)))
@@ -90,7 +90,7 @@ namespace LunraGames.Singletonnes
 
 			moveResult = AssetDatabase.MoveAsset(originPath, targetPath);
 
-			if (!string.IsNullOrEmpty(moveResult)) UnityEditor.EditorUtility.DisplayDialog("Error", moveResult, "Okay");
+			if (!string.IsNullOrEmpty(moveResult)) EditorUtility.DisplayDialog("Error", moveResult, Strings.Dialogs.Responses.Okay);
 		}
 	}
 }
