@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LunraGames.Singletonnes
 {
-	[CustomEditor(typeof(ScriptableSingleton), true)]
+	[CustomEditor(typeof(ScriptableSingletonBase), true)]
 	public class ScriptableSingletonEditor : Editor 
 	{
 		static float ButtonHeight = 40f;
@@ -17,14 +17,14 @@ namespace LunraGames.Singletonnes
 			
 		public override void OnInspectorGUI() 
 		{
-			var typedTarget = (ScriptableSingleton)target;
+			var typedTarget = (ScriptableSingletonBase)target;
 
 			var path = AssetDatabase.GetAssetPath(typedTarget);
 			var assetName = Path.GetFileNameWithoutExtension(path);
 			var requiredName = typedTarget.CurrentType.Name;
-			var requiredPathEnding = Path.Combine("Resources", Path.Combine(ScriptableSingleton.ContainingDirectory, requiredName));
+			var requiredPathEnding = Path.Combine("Resources", Path.Combine(ScriptableSingletonBase.ContainingDirectory, requiredName));
 			var invalidName = assetName != requiredName;
-			var invalidPath = !path.EndsWith(Path.Combine(Path.Combine("Resources", ScriptableSingleton.ContainingDirectory), Path.GetFileName(path)));
+			var invalidPath = !path.EndsWith(Path.Combine(Path.Combine("Resources", ScriptableSingletonBase.ContainingDirectory), Path.GetFileName(path)));
 
 			if (invalidName || invalidPath) 
 			{
@@ -43,9 +43,9 @@ namespace LunraGames.Singletonnes
 
 								if (selectedPath.EndsWith("Resources")) 
 								{
-									MoveAsset(path, Path.Combine(selectedPath, Path.Combine(ScriptableSingleton.ContainingDirectory, requiredName + ".asset")));
+									MoveAsset(path, Path.Combine(selectedPath, Path.Combine(ScriptableSingletonBase.ContainingDirectory, requiredName + ".asset")));
 								}
-								else if (selectedPath.EndsWith(Path.Combine("Resources", ScriptableSingleton.ContainingDirectory))) 
+								else if (selectedPath.EndsWith(Path.Combine("Resources", ScriptableSingletonBase.ContainingDirectory))) 
 								{
 									MoveAsset(path, Path.Combine(selectedPath, requiredName + ".asset"));
 								} 
@@ -82,7 +82,7 @@ namespace LunraGames.Singletonnes
 			{
 				var resourceDir = Path.GetDirectoryName(parentDir);
 				if (!AssetDatabase.IsValidFolder(resourceDir)) AssetDatabase.CreateFolder(Path.GetDirectoryName(resourceDir), "Resources");
-				AssetDatabase.CreateFolder(resourceDir, ScriptableSingleton.ContainingDirectory);
+				AssetDatabase.CreateFolder(resourceDir, ScriptableSingletonBase.ContainingDirectory);
 			}
 
 			moveResult = AssetDatabase.MoveAsset(originPath, targetPath);
