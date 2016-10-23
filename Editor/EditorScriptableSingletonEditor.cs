@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace LunraGames.Singletonnes
+namespace LunraGamesEditor.Singletonnes
 {
 	[CustomEditor(typeof(EditorScriptableSingletonBase), true)]
 	public class EditorScriptableSingletonEditor : Editor 

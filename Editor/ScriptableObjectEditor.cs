@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using UnityEditor;
 using UnityEngine;
+using LunraGames.Singletonnes;
 
-namespace LunraGames.Singletonnes
+namespace LunraGamesEditor.Singletonnes
 {
 	[CustomEditor(typeof(ScriptableSingletonBase), true)]
 	public class ScriptableSingletonEditor : Editor 

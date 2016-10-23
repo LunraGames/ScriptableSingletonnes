@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-namespace LunraGames.Singletonnes
+namespace LunraGamesEditor.Singletonnes
 {
 	public abstract class EditorScriptableSingleton<T> : EditorScriptableSingletonBase 
 		where T : EditorScriptableSingleton<T>
@@ -13,6 +13,7 @@ namespace LunraGames.Singletonnes
 		static T FindInstance()
 		{
 			var instances = AssetDatabase.FindAssets("t:ScriptableObject "+typeof(T).Name);
+
 			if (instances.Length != 1) 
 			{
 				Debug.LogError(instances.Length == 0 ? "No instance of Noise Maker settings exist" : "More than one instance of Noise Maker settings exists");
