@@ -71,7 +71,12 @@ namespace LunraGamesEditor.Singletonnes
 				GUILayout.Space(4f);
 			}
 
-			DrawDefaultInspector();
+			OnInspectorGUIExtended();
+		}
+
+		protected virtual void OnInspectorGUIExtended()
+		{
+            DrawDefaultInspector();
 		}
 
 		void MoveAsset(string originPath, string targetPath) 
